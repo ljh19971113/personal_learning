@@ -1,0 +1,37 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    Stack<Integer> stack = new Stack<>();
+    int sum = 0;
+    public int calPoints(String[] ops) {
+        for (String s:ops){
+            deal(s);
+        }
+        return sum;
+    }
+    public void deal(String s){
+        int temp = 0;
+        switch (s){
+            case "D":
+                temp = stack.peek()*2;
+                stack.push(temp);
+                sum += temp;
+                break;
+            case "C":
+                temp = stack.pop();
+                sum -= temp;
+                break;
+            case "+":
+                int first = stack.pop();
+                int second = stack.peek();
+                stack.push(first);
+                stack.push(first+second);
+                sum += (first+second);
+                break;
+            default:
+                temp = Integer.parseInt(s);
+                stack.push(temp);
+                sum += temp;
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
