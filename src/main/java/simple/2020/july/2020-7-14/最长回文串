@@ -1,0 +1,25 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int longestPalindrome(String s) {
+        char[] arr = new char[128];
+        char[] chars = s.toCharArray();
+        for (int i=0;i<chars.length;i++) {
+            arr[chars[i]] ++ ;
+        }
+        int count = 0;
+        int sum = 0;
+        for (int i=0;i<arr.length;i++) {
+            if ((arr[i] & 1) == 1) {
+                sum += arr[i] - 1;
+                count++;
+            } else {
+                sum += arr[i];
+            }
+        }
+        if (count > 0) {
+            sum++;
+        }
+        return sum;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

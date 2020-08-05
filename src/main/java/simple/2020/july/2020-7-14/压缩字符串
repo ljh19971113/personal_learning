@@ -1,0 +1,29 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int compress(char[] chars) {
+        StringBuilder builder = new StringBuilder();
+        char current = chars[0];
+        int count = 1;
+        for (int i=1;i<chars.length;i++) {
+            if (current == chars[i]) {
+                count++;
+            } else {
+                builder.append(current);
+                current = chars[i];
+                if (count > 1) {
+                    builder.append(count);
+                }
+                count = 1;
+            }
+        }
+        builder.append(current);
+        if (count > 1) {
+            builder.append(count);
+        }
+        for (int i=0;i<builder.length();i++) {
+            chars[i] = builder.toString().charAt(i);
+        }
+        return builder.length();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

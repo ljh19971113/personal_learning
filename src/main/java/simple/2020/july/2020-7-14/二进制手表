@@ -1,0 +1,34 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public List<String> readBinaryWatch(int num) {
+        List<String> list = new ArrayList<>();
+        for (int i=0;i<12;i++) {
+            for (int j=0;j<60;j++) {
+                if ((bin(i) + bin(j)) == num) {
+                    list.add(formatTime(i,j));
+                }
+            }
+        }
+        return list;
+    }
+    private int bin(int n) { //计算int值二进制格式中的1的个数
+        int count = 0;
+        while (n > 0) {
+            if ((n & 1) == 1) {
+                count++;
+            }
+            n >>>= 1;
+        }
+        return count;
+    }
+
+    private String formatTime(int hour,int min) {
+        StringBuilder result = new StringBuilder(hour+":");
+        if (min < 10) {
+            result.append(0);
+        }
+        result.append(min);
+        return result.toString();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

@@ -1,0 +1,26 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String[] findRelativeRanks(int[] nums) {
+        Map<String,Integer> map = new HashMap<>();
+        int length = nums.length;
+        for (int i=0;i<length;i++) {
+            map.put(nums[i]+"",i);
+        }
+        Arrays.sort(nums);
+        String[] result = new String[length];
+        for (int i=length-4;i>=0;i--) {
+            result[map.get(nums[i]+"")] = length-i+"";
+        }
+        if (length > 0) {
+            result[map.get(nums[length-1]+"")] = "Gold Medal";
+        }
+        if (length > 1) {
+            result[map.get(nums[length-2]+"")] = "Silver Medal";
+        }
+        if (length > 2) {
+            result[map.get(nums[length-3]+"")] = "Bronze Medal";
+        }
+        return result;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

@@ -1,0 +1,16 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int distributeCandies(int[] candies) {
+        Arrays.sort(candies);
+        int count = 0;
+        int cur = -1;
+        for (int i=0;i<candies.length;i++) {
+            if (cur != candies[i]) {
+                count++;
+                cur = candies[i];
+            }
+        }
+        return count > candies.length/2 ? candies.length/2 : count;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

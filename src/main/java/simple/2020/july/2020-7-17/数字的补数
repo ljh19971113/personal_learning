@@ -1,0 +1,14 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int findComplement(int num) {
+        int temp = 0;
+        int start = num;
+        while (num != 0){
+            temp <<= 1;
+            num >>>= 1;
+            temp |= 1;
+        }
+        return temp ^ start;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

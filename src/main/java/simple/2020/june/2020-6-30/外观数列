@@ -1,0 +1,24 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        String before = countAndSay(n-1);
+        int count = 1;
+        char temp = before.charAt(0);
+        StringBuilder builder = new StringBuilder();
+        for(int i=1;i<before.length();i++){
+            if (before.charAt(i) == temp) {
+                count++;
+            } else {
+                builder.append(count).append(temp);
+                count = 1;
+                temp = before.charAt(i);
+            }
+        }
+        builder.append(count).append(temp);
+        return builder.toString();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

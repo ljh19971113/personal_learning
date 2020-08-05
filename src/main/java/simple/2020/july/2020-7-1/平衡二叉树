@@ -1,0 +1,31 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (Math.abs(treeHigh(root.left)-treeHigh(root.right)) > 1){
+            return false;
+        }else {
+            return isBalanced(root.left) && isBalanced(root.right);
+        }
+    }
+    int treeHigh(TreeNode node){
+        if(node == null){
+            return 0;
+        }
+        return Math.max(treeHigh(node.left),treeHigh(node.right))+1;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

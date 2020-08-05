@@ -1,0 +1,25 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[][] matrixReshape(int[][] nums, int r, int c) {
+        int hight = nums.length;
+        int width = nums[0].length;
+        if (r*c != width*hight) {
+            return nums;
+        }
+        int[][] result = new int[r][c];
+        int result_i = 0;
+        int result_j = 0;
+        for (int i=0;i<nums.length;i++) {
+            for (int j=0;j<nums[0].length;j++) {
+                result[result_i][result_j] = nums[i][j];
+                result_j++;
+                if (result_j >= c) {
+                    result_j = 0;
+                    result_i++;
+                }
+            }
+        }
+        return result;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

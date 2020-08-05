@@ -1,0 +1,30 @@
+class Solution {
+    TreeNode test = null;
+    public boolean findTarget(TreeNode root, int k) {
+        if (root == null) {
+            return false;
+        }
+        test = root;
+        return helper(root,k);
+    }
+    public boolean helper(TreeNode root, int k) {
+        if (root == null) {
+            return false;
+        }
+        int value = k - root.val;
+        return findTargetHelper(test,value,root) || helper(root.left,k) || helper(root.right,k);
+    }
+    public boolean findTargetHelper(TreeNode root,int target,TreeNode check) {
+        if (root == null) {
+            return false;
+        }
+        if (root.val == target && root != check) {
+            return true;
+        }else if (root.val < target) {
+            return findTargetHelper(root.right,target,check);
+        }else {
+            return findTargetHelper(root.left,target,check);
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

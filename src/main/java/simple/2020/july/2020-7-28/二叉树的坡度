@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int sum = 0;
+    public int findTilt(TreeNode root) {
+        helper(root);
+        return sum;
+    }
+    public int helper(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int left = helper(node.left);
+        int right = helper(node.right);
+        sum += Math.abs(left-right);
+        return node.val + left + right;
+    }
+
+}
+//leetcode submit region end(Prohibit modification and deletion)

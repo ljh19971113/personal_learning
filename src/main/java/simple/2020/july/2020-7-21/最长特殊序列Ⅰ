@@ -1,0 +1,21 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int findLUSlength(String a, String b) {
+        if (a == null || b == null || a.length()==0 || b.length()==0) {
+            return 0;
+        }
+        if (a.length() > b.length()) {
+            return findLUSlengthHelper(b,a);
+        } else {
+            return findLUSlengthHelper(a,b);
+        }
+    }
+    public int findLUSlengthHelper(String a,String b) {
+        if (b.length()==a.length() && b.contains(a)) {
+            return -1;
+        }else{
+            return b.length();
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

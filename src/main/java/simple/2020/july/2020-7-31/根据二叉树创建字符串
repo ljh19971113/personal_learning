@@ -1,0 +1,23 @@
+class Solution {
+    public String tree2str(TreeNode t) {
+        return helper(t);
+    }
+    public String helper(TreeNode t) {
+        if (t == null) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(t.val);
+        String left = helper(t.left);
+        String right = helper(t.right);
+        if (left.length() == 0 && right.length() > 0) {
+            builder.append("()(").append(right).append(")");
+        } else if (left.length() > 0 && right.length() == 0) {
+            builder.append("(").append(left).append(")");
+        } else if (left.length() > 0 && right.length() > 0) {
+            builder.append("(").append(left).append(")(").append(right).append(")");
+        }
+        return builder.toString();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

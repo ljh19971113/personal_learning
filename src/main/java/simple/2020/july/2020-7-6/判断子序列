@@ -1,0 +1,16 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int index = 0;
+        for (int i=0;i<s.length();i++) {
+            char c = s.charAt(i);
+            index = t.indexOf(c,index);
+            index += 1;
+            if (index <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

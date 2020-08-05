@@ -1,0 +1,21 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int titleToNumber(String s) {
+        int sum = 0;
+        for (int i=0;i<s.length();i++) {
+            char c = s.charAt(i);
+            int num = charToNum(c);
+            int n = s.length()-i;
+            while (n > 1) {
+                num *= 26;
+                n--;
+            }
+            sum += num;
+        }
+        return sum;
+    }
+    private int charToNum(char c){
+        return (int) c - 64;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

@@ -1,0 +1,23 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+//alone 1
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        String num = Integer.toString(x);
+        int leftIndex = 0;
+        int rightIndex = num.length()-1;
+        boolean result = true;
+        while (leftIndex < rightIndex) {
+            if (num.charAt(leftIndex) != num.charAt(rightIndex)){
+                result = false;
+                break;
+            }
+            leftIndex++;
+            rightIndex--;
+        }
+        return result;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

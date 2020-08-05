@@ -1,0 +1,25 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int thirdMax(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        Arrays.sort(nums);
+        int first = nums[nums.length-1];
+        int second = 0;
+        int i=nums.length-1;
+        for (;i>=0;i--) {
+            if (nums[i] < first){
+                second = nums[i];
+                break;
+            }
+        }
+        for (;i>=0;i--) {
+            if (nums[i] < second) {
+                return nums[i];
+            }
+        }
+        return first;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

@@ -1,0 +1,37 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int islandPerimeter(int[][] grid) {
+        if (grid == null || grid.length == 0){
+            return 0;
+        }
+        int sum = 0;
+        int splitNum = 0;
+        for (int i=0;i<grid.length;i++) {
+            for (int j=0;j<grid[0].length;j++) {
+                if (grid[i][j] == 1) {
+                    sum += 4;
+                    splitNum += helper(grid,i,j);
+                }
+            }
+        }
+        return sum - splitNum;
+    }
+    public int helper(int[][] grid,int i,int j) {
+        int num = 0;
+        if ((i-1) >=0 && grid[i-1][j] == 1) {
+            num++;
+        }
+        if ((i+1) < grid.length && grid[i+1][j] == 1) {
+            num++;
+        }
+        if ((j-1) >= 0 && grid[i][j-1] == 1) {
+            num++;
+        }
+        if ((j+1) < grid[0].length && grid[i][j+1] == 1) {
+            num++;
+        }
+        return num;
+    }
+
+}
+//leetcode submit region end(Prohibit modification and deletion)

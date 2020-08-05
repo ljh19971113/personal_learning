@@ -1,0 +1,11 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        char[] sc = s.toCharArray();
+        char[] tc = t.toCharArray();
+        Arrays.sort(sc);
+        Arrays.sort(tc);
+        return Arrays.equals(sc,tc);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

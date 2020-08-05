@@ -1,0 +1,24 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String reverseStr(String s, int k) {
+        char[] chars = s.toCharArray();
+        int i = 0;
+        for (;i<s.length();i+=(k*2)) {
+            helper(chars,i,i+k-1);
+        }
+        return new String(chars);
+    }
+    public void helper(char[] chars,int start,int end) {
+        if (end > chars.length-1) {
+            end = chars.length-1;
+        }
+        while (start < end) {
+            char c = chars[start];
+            chars[start] = chars[end];
+            chars[end] = c;
+            start++;
+            end--;
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

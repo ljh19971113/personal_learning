@@ -1,0 +1,23 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String convertToBase7(int num) {
+        StringBuilder result = new StringBuilder();
+        boolean flag = false;
+        if (num < 0) {
+            num = -num;
+            flag = true;
+        }
+        if (num == 0) {
+            return "0";
+        }
+        while (num != 0) {
+            result.append(num%7);
+            num/=7;
+        }
+        if (flag) {
+            result.append('-');
+        }
+        return result.reverse().toString();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

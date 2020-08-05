@@ -1,0 +1,16 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int maxCount(int m, int n, int[][] ops) {
+        int a = Integer.MAX_VALUE;
+        int b = Integer.MAX_VALUE;
+        if (ops.length == 0) {
+            return m*n;
+        }
+        for (int i=0;i<ops.length;i++) {
+            a = Math.min(ops[i][0],a);
+            b = Math.min(ops[i][1],b);
+        }
+        return a*b;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

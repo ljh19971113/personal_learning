@@ -1,0 +1,27 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String convertToTitle(int n) {
+        StringBuilder result = new StringBuilder();
+        while (n > 0) {
+            int remainder = n % 26;
+            if (remainder == 0) {
+                result.append('Z');
+                n /= 26;
+                if (n == 1) {
+                    break;
+                } else {
+                    n -= 1;
+                }
+            } else {
+                char c = numToChar(remainder);
+                result.append(c);
+                n /= 26;
+            }
+        }
+        return result.reverse().toString();
+    }
+    private char numToChar(int num){
+        return (char) ((char) num + 64);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

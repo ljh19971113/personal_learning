@@ -1,0 +1,38 @@
+
+//leetcode submit region begin(Prohibit modification and deletion)
+//alone 1
+class Solution {
+    public int reverse(int x) {
+        if (x == Integer.MIN_VALUE) {
+            return 0;
+        }
+        boolean flag = true;
+        if (x < 0) {
+            x = -x;
+            flag = false;
+        }
+        int result = reverseHelper(x);
+        if (!flag) {
+            result = -result;
+        }
+        return result;
+    }
+    private int reverseHelper(int n){
+        if (n < 0) {
+            throw new RuntimeException("输入错误");
+        }
+        int reverseNum = 0;
+        do  {
+            reverseNum += n%10;
+            n /= 10;
+            if (n > 0) {
+                if (reverseNum >= (double)Integer.MAX_VALUE/10){
+                    return 0;
+                }
+                reverseNum *= 10;
+            }
+        } while (n != 0);
+        return reverseNum;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

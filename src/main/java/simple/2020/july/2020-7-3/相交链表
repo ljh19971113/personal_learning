@@ -1,0 +1,29 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode pA = headA;
+        ListNode pB = headB;
+        while (pA != pB) {
+            pA = pA == null ? headB : pA.next;
+            pB = pB == null ? headA : pB.next;
+        }
+        return pA;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+这道题并不是自己独立完成,但是其中方法可以想明白,可以看作长线和短线上面的珠子遍历,在while循环中,每个指针其实都是把长线和短线都
+遍历了一遍,不同的是两个指针pA,pB先遍历的线不同,如果两个线有重合,那么在最后一段必定是相同的.

@@ -1,0 +1,33 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum = 0;
+        if (root == null) {
+            return sum;
+        }
+        if (root.left != null && isLeaf(root.left)) {
+            sum += root.left.val;
+        } else {
+            sum += sumOfLeftLeaves(root.left);
+        }
+        sum += sumOfLeftLeaves(root.right);
+        return sum;
+    }
+
+    public boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
+
+}
+//leetcode submit region end(Prohibit modification and deletion)

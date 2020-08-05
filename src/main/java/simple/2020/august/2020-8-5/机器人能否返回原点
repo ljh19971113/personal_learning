@@ -1,0 +1,20 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    int vertical = 0;
+    int horizontal = 0;
+    public boolean judgeCircle(String moves) {
+        for (int i=0;i<moves.length();i++) {
+            deal(moves.charAt(i));
+        }
+        return vertical==0 && horizontal==0;
+    }
+    public void deal(char c) {
+        switch (c) {
+            case 'L':horizontal++;break;
+            case 'R':horizontal--;break;
+            case 'U':vertical++;break;
+            case 'D':vertical--;break;
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

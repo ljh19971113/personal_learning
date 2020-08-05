@@ -1,0 +1,31 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int findPairs(int[] nums, int k) {
+        if (nums == null || nums.length < 2) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int indexX = 0;
+        int indexY = 1;
+        int result = 0;
+        int x = nums[indexX];
+        int y = nums[indexY];
+        if ((y-x)==k) {
+            result++;
+        }
+        while (indexY < nums.length && indexX <= indexY) {
+            if ((indexX != indexY) && ((nums[indexY]-nums[indexX]) == k) && (nums[indexX] != x || nums[indexY] != y)) {
+                result++;
+                x = nums[indexX];
+                y = nums[indexY];
+                indexY++;
+            } else if ((nums[indexY]-nums[indexX]) > k) {
+                indexX++;
+            } else {
+                indexY++;
+            }
+        }
+        return result;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

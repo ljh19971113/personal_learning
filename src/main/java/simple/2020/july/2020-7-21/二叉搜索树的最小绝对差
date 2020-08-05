@@ -1,0 +1,32 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int min = Integer.MAX_VALUE;
+    int pre = -1;
+    int cur = -1;
+    public int getMinimumDifference(TreeNode root) {
+        inOrder(root);
+        return min;
+    }
+    public void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        pre = cur;
+        cur = root.val;
+        if (pre > -1 && cur-pre < min) {
+            min = cur-pre;
+        }
+        inOrder(root.right);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

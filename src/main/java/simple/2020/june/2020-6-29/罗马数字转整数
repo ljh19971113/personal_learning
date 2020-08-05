@@ -1,0 +1,36 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int romanToInt(String s) {
+        int sum = 0;
+        int temp = romanHelper(s.charAt(0));
+        for(int i=1;i<s.length();i++){
+            int currentnum = romanHelper(s.charAt(i));
+            if(temp < currentnum){
+                sum += (currentnum-temp);
+                i += 1;
+                if (i < s.length()) {
+                    temp = romanHelper(s.charAt(i));
+                }else{
+                    temp = 0;
+                }
+            }else{
+                sum += temp;
+                temp = currentnum;
+            }
+        }
+        return sum+temp;
+    }
+    public int romanHelper(char c) {
+        switch (c) {
+            case 'I':return 1;
+            case 'V':return 5;
+            case 'X':return 10;
+            case 'L':return 50;
+            case 'C':return 100;
+            case 'D':return 500;
+            case 'M':return 1000;
+            default:throw new RuntimeException("input error");
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

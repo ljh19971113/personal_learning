@@ -1,0 +1,31 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int maxProfit(int[] prices) {
+        int index = 0;
+        int left = 0;
+        int right = 0;
+        int sum = 0;
+        while (index < prices.length-1) {
+            for (int i = index+1;i<prices.length;i++){
+                if(prices[left] < prices[i]){
+                    break;
+                }else {
+                    left++;
+                }
+            }
+            right = left;
+            for (int j = left+1;j<prices.length;j++) {
+                if (prices[right] > prices[j]) {
+                    break;
+                }else {
+                    right++;
+                }
+            }
+            sum += prices[right] - prices[left];
+            index = right;
+            left = right;
+        }
+        return sum;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

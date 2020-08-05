@@ -1,0 +1,37 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String[] findWords(String[] words) {
+        List<String> result = new ArrayList<>();
+        int[] a = new int[58];
+        for(int i=0;i<58;i++){
+            if(i=='Q'-65||i=='W'-65||i=='E'-65||i=='R'-65||i=='T'-65||i=='Y'-65||i=='U'-65||i=='I'-65||i=='O'-65||i=='P'-65||i=='q'-65||i=='w'-65||i=='e'-65||i=='r'-65||i=='t'-65||i=='y'-65||i=='u'-65||i=='i'-65||i=='o'-65||i=='p'-65)
+                a[i]=1;
+            else if(i=='A'-65||i=='S'-65||i=='D'-65||i=='F'-65||i=='G'-65||i=='H'-65||i=='J'-65||i=='K'-65||i=='L'-65||i=='a'-65||i=='s'-65||i=='d'-65||i=='f'-65||i=='g'-65||i=='h'-65||i=='j'-65||i=='k'-65||i=='l'-65)
+                a[i]=2;
+            else
+                a[i]=3;
+        }
+        for (String s:words) {
+            if (s.length()==1) {
+                result.add(s);
+                continue;
+            }
+            char c = s.charAt(0);
+            int flag = a[c - 65];
+            boolean add = true;
+            for (int i=1;i<s.length();i++) {
+                if (a[s.charAt(i)-65] != flag){
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                result.add(s);
+            }
+        }
+        String[] temp = new String[result.size()];
+        result.toArray(temp);
+        return temp;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
