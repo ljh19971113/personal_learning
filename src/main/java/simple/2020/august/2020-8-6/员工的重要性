@@ -1,0 +1,21 @@
+class Solution {
+    Set<Integer> set = new HashSet<>();
+    public int getImportance(List<Employee> employees, int id) {
+        if (employees == null || employees.size() == 0) {
+            return 0;
+        }
+        int sum = 0;
+        set.add(id);
+        while (!set.isEmpty()) {
+            for (Employee e:employees) {
+                if (set.contains(e.id)) {
+                    set.remove(e.id);
+                    sum += e.importance;
+                    set.addAll(e.subordinates);
+                }
+            }
+        }
+        return sum;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
