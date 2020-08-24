@@ -1,0 +1,35 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode node = new ListNode(0);
+        while (head != null) {
+            ListNode cur = head;
+            head = head.next;
+            cur.next = null;
+            ListNode temp = node;
+            while (temp != null) {
+                if (temp.next == null) {
+                    temp.next = cur;
+                    break;
+                }else if (temp.next.val > cur.val) {
+                    cur.next = temp.next;
+                    temp.next = cur;
+                    break;
+                }
+                temp = temp.next;
+            }
+        }
+        return node.next;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
