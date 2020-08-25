@@ -1,0 +1,31 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    int index = 0;
+    int[] help = null;
+    public List<Integer> countSmaller(int[] nums) {
+        int N = nums.length;
+        help = new int[N];
+        List<Integer> res = new ArrayList<>();
+        for (int i=N-1;i>=0;i--) {
+            res.add(0,helper(nums[i]));
+        }
+        return res;
+    }
+    int helper(int num) {
+        help[index] = num;
+        int i=index;
+        for (;i>0;i--) {
+            if (help[i-1] >= help[i]) {
+                int t = help[i];
+                help[i] = help[i-1];
+                help[i-1] = t;
+            }else {
+                break;
+            }
+        }
+        index++;
+        return i;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+//学习别人的方法,代码自己写
