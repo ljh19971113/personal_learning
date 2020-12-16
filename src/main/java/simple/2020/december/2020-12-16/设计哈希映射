@@ -1,0 +1,122 @@
+import com.sun.org.apache.regexp.internal.RE;
+
+import java.util.LinkedList;
+import java.util.Objects;
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class MyHashMap {
+    int range = 789;
+    Bucket[] buckets;
+
+    /** Initialize your data structure here. */
+    public MyHashMap() {
+        buckets = new Bucket[range];
+    }
+
+    /** value will always be non-negative. */
+    public void put(int key, int value) {
+        Entry entry = new Entry(key,value);
+        int index = hash(key);
+        if (buckets[index] == null) {
+            buckets[index] = new Bucket(entry);
+        } else {
+            buckets[index].add(entry);
+        }
+    }
+
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    public int get(int key) {
+        int index = hash(key);
+        if (buckets[index] != null) {
+            return buckets[index].getEntryValue(key);
+        }
+        return -1;
+    }
+
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    public void remove(int key) {
+        int index = hash(key);
+        if (buckets[index] != null) {
+            buckets[index].delete(new Entry(key));
+        }
+    }
+
+    private int hash(int key) {
+        return key % range;
+    }
+}
+
+class Entry{
+    private int key;
+    private int value;
+    public Entry(int key,int value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public Entry(int key) {
+        this.key = key;
+    }
+
+    public void putValue(int value) {
+        this.value = value;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public int getValue(){
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entry entry = (Entry) o;
+        return key == entry.key;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
+}
+
+class Bucket{
+    LinkedList<Entry> list = new LinkedList<>();
+    public Bucket(Entry entry) {
+        list.addFirst(entry);
+    }
+
+    public void add(Entry entry) {
+        if (list.contains(entry)) {
+            list.remove(entry);
+        }
+        list.addFirst(entry);
+    }
+
+    public void delete(Entry entry) {
+        list.remove(entry);
+    }
+
+    public int getEntryValue(int key) {
+        for (Entry entry:list) {
+            if (entry.getKey() == key) {
+                return entry.getValue();
+            }
+        }
+        return -1;
+    }
+
+}
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap obj = new MyHashMap();
+ * obj.put(key,value);
+ * int param_2 = obj.get(key);
+ * obj.remove(key);
+ */
+//leetcode submit region end(Prohibit modification and deletion)

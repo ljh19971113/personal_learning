@@ -1,0 +1,37 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String shortestCompletingWord(String licensePlate, String[] words) {
+        String res = null;
+        Map<Character,Integer> map = new HashMap<>();
+        licensePlate = licensePlate.toLowerCase();
+        for (char c:licensePlate.toCharArray()) {
+            if (c >= 97 && c <= 122) {
+                Integer value = map.getOrDefault(c,0);
+                map.put(c,value+1);
+            }
+        }
+        for (String word:words) {
+            Map<Character,Integer> temp = new HashMap<>(map);
+            for (char c:word.toCharArray()) {
+                if (temp.containsKey(c)) {
+                    Integer value = temp.get(c);
+                    value--;
+                    if (value == 0) {
+                        temp.remove(c);
+                    }else {
+                        temp.put(c,value);
+                    }
+                }
+            }
+            if (temp.size() == 0) {
+                if (res == null) {
+                    res = word;
+                }else if (res.length() > word.length()){
+                    res = word;
+                }
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

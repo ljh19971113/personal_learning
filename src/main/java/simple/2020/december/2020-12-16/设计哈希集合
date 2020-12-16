@@ -1,0 +1,73 @@
+import java.util.LinkedList;
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class MyHashSet {
+    private Bucket[] buckets;
+    private int range = 789;
+
+    /** Initialize your data structure here. */
+    public MyHashSet() {
+        buckets = new Bucket[range];
+    }
+
+    public void add(int key) {
+        int index = hash(key);
+        if (buckets[index] == null) {
+            buckets[index] = new Bucket(key);
+        } else {
+            buckets[index].add(key);
+        }
+    }
+
+    public void remove(int key) {
+        int index = hash(key);
+        if (buckets[index] != null) {
+            buckets[index].delete(key);
+        }
+    }
+
+    /** Returns true if this set contains the specified element */
+    public boolean contains(int key) {
+        int index = hash(key);
+        if (buckets[index] != null) {
+            return buckets[index].exist(key);
+        }
+        return false;
+    }
+
+    private int hash(int key) {
+        return key % range;
+    }
+}
+
+class Bucket {
+    LinkedList<Integer> list = new LinkedList<>();
+
+    public Bucket(Integer num) {
+        list.addFirst(num);
+    }
+
+    public void add(Integer num) {
+        if (!list.contains(num)) {
+            list.addFirst(num);
+        }
+    }
+
+    public void delete(Integer num) {
+        list.remove(num);
+    }
+
+    public boolean exist(Integer num) {
+        return list.contains(num);
+    }
+
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
+//leetcode submit region end(Prohibit modification and deletion)

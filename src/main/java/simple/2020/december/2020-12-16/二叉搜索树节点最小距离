@@ -1,0 +1,28 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int min = Integer.MAX_VALUE;
+    int pre = Integer.MAX_VALUE;
+    public int minDiffInBST(TreeNode root) {
+        preFind(root);
+        return min;
+    }
+    void preFind(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        preFind(node.left);
+        min = Math.min(min,Math.abs(pre-node.val));
+        pre = node.val;
+        preFind(node.right);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

@@ -1,0 +1,13 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String toLowerCase(String str) {
+        char[] chars = str.toCharArray();
+        for (int i=0;i<chars.length;i++) {
+            if (chars[i] <= 90 && chars[i] >= 65) {
+                chars[i] += 32;
+            }
+        }
+        return new String(chars);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

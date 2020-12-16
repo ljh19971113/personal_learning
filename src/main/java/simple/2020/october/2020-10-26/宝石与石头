@@ -1,0 +1,17 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        Map<Character,Boolean> map = new HashMap<>();
+        for (char c:J.toCharArray()) {
+            map.put(c,true);
+        }
+        int count = 0;
+        for (char c:S.toCharArray()) {
+            if (map.containsKey(c)) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

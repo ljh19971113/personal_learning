@@ -1,0 +1,45 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int deepth = 0;
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        int queuelength = queue.size();
+        while (queue.size() != 0) {
+            deepth++;
+            for (int i=0;i<queuelength;i++) {
+                for (Node node:queue.poll().children) {
+                    queue.offer(node);
+                }
+            }
+            queuelength = queue.size();
+        }
+        return deepth;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
