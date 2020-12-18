@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    Map<String,Integer> map = new HashMap<>();
+    public List<String> subdomainVisits(String[] cpdomains) {
+        for (String entry:cpdomains) {
+            String[] kv = entry.split(" ");
+            Integer value = Integer.valueOf(kv[0]);
+            String[] keys = kv[1].split("\\.");
+            for (int i=0;i<keys.length;i++) {
+                StringBuilder builder = new StringBuilder();
+                for (int j=i;j<keys.length;j++) {
+                    builder.append(keys[j]);
+                    if (j != keys.length-1) {
+                        builder.append(".");
+                    }
+                }
+                String key = builder.toString();
+                if (map.containsKey(key)) {
+                    map.put(key,map.get(key) + value);
+                } else {
+                    map.put(key,value);
+                }
+            }
+        }
+        List<String> res = new ArrayList<>();
+        for (Map.Entry entry:map.entrySet()) {
+            res.add(entry.getValue()+ " " + entry.getKey());
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

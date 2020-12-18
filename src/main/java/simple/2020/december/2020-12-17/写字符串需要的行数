@@ -1,0 +1,21 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[] numberOfLines(int[] widths, String s) {
+        int linenum = 0;
+        int lastLine = 0;
+        for (char c:s.toCharArray()) {
+            int num = widths[c-'a'];
+            if (lastLine+num > 100) {
+                linenum++;
+                lastLine = num;
+            } else {
+                lastLine += num;
+            }
+        }
+        if (lastLine > 0) {
+            linenum++;
+        }
+        return new int[] {linenum,lastLine};
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
