@@ -1,0 +1,32 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    String[] vowels = {"a","A","e","E","i","I","o","O","u","U"};
+    public String toGoatLatin(String S) {
+        StringBuilder end = new StringBuilder("ma");
+        String[] words = S.split(" ");
+        for (int i=0;i<words.length;i++) {
+            end.append("a");
+            if (!startWithVowel(words[i])) {
+                String newend = words[i].substring(0,1);
+                String newstart = words[i].substring(1);
+                words[i] = newstart+newend;
+            }
+            words[i] = words[i]+end;
+        }
+        StringBuilder res = new StringBuilder();
+        for (String word:words) {
+            res.append(" " + word);
+        }
+        return res.toString().substring(1);
+    }
+
+    boolean startWithVowel(String s) {
+        for (String vowel:vowels) {
+            if (s.startsWith(vowel)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
