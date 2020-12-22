@@ -1,0 +1,23 @@
+import java.util.Stack;
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+        return helper(S).equals(helper(T));
+    }
+
+    private String helper(String S) {
+        StringBuilder sb = new StringBuilder();
+        int count = -1;
+        for(char c:S.toCharArray()) {
+            if (c != '#') {
+                sb.append(c);
+                count++;
+            } else if (count >= 0){
+                sb.deleteCharAt(count--);
+            }
+        }
+        return sb.toString();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
