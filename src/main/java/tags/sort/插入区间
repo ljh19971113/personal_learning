@@ -44,3 +44,58 @@ class Solution {
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
+
+
+20210222记录
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        if (intervals.length < 1) {
+            System.out.println(newInterval);
+            System.out.println(intervals);
+            return new int[][]{newInterval};
+        }
+        int[][] temp = new int[intervals.length+1][2];
+        int N = 0;  //记录合并后总数
+        int left = intervals[0][0];
+        int right = intervals[0][1];
+        int i = 0;
+        boolean flag = true;
+        if (newInterval[1] < left) {  //头部处理
+            temp[N++] = newInterval;
+            flag = false;
+        }
+        for (;i<intervals.length;i++) {
+            if (intervals[i][1] < newInterval[0] || !flag) {
+                temp[N++] = intervals[i];
+            } else{
+                if (intervals[i][0] > newInterval[1]) {
+                    flag = false;
+                    temp[N++] = newInterval;
+                    i--;
+                    continue;
+                }
+                left = Math.min(intervals[i][0],newInterval[0]);
+                for (;i<intervals.length;i++) {
+                    if (intervals[i][1] >= newInterval[1]
+                            || (i < intervals.length-1 && intervals[i+1][0] > newInterval[1])
+                            || (i == intervals.length-1)) {
+                        right = Math.max(newInterval[1],intervals[i][1]);
+                        temp[N++] = new int[]{left,right};
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if (flag) {
+            temp[N++] = newInterval;
+        }
+        int[][] result = new int[N][2];
+        for (int j=0; j<N; j++) {
+            result[j] = temp[j];
+        }
+        return result;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)

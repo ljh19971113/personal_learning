@@ -1,3 +1,7 @@
+解题注意：
+   1.排序，左值一定要按顺序，右值可以根据解法需要来决定是否按顺序
+   2.边界值，一定要注意后面的右值不一定比前面右值大，取值时应该取最大值
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[][] merge(int[][] intervals) {
@@ -5,15 +9,11 @@ class Solution {
             return intervals;
         }
         for (int i = 1;i<intervals.length;i++) {
-            for (int j=i;j>0;j--) {
-                if (intervals[j][0] < intervals[j-1][0]) {
-                    int[] temp = intervals[j];
-                    intervals[j] = intervals[j-1];
-                    intervals[j-1] = temp;
-                }else {
-                    break;
-                }
-            }
+             for (int j=i;j>0 && intervals[j][0] < intervals[j-1][0];j--) {
+                                int[] temp = intervals[j];
+                                intervals[j] = intervals[j-1];
+                                intervals[j-1] = temp;
+                        }
         }
         System.out.println(Arrays.deepToString(intervals));
         int[][] temp = new int[intervals.length][2];
@@ -35,6 +35,50 @@ class Solution {
             res[i] = temp[i];
         }
         return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        sort(intervals);
+        System.out.println(Arrays.deepToString(intervals));
+        List<Integer> list = new ArrayList<>();
+        int N = intervals.length;
+        int i = 0,j=0,maxright = intervals[0][1];
+        for (;i<N && j<N-1;j++) {
+            if (maxright < intervals[j+1][0]) {
+                list.add(intervals[i][0]);
+                list.add(maxright);
+                i = j+1;
+                maxright = intervals[j+1][1];
+            } else {
+                maxright = Math.max(maxright,intervals[j+1][1]);
+            }
+        }
+        if (i != N) {
+            list.add(intervals[i][0]);
+            list.add(Math.max(intervals[N-1][1],maxright));
+        }
+        int[][] result = new int[list.size()/2][2];
+        for (int k=0,count=0;k<list.size()/2 && count < list.size();k++) {
+            result[k][0] = list.get(count++);
+            result[k][1] = list.get(count++);
+        }
+        return result;
+    }
+
+    public void sort(int[][] intervals) {
+        for (int i=1; i<intervals.length; i++) {
+            for (int j=i; j>0 && (intervals[j][0] < intervals[j-1][0] ||
+                    (intervals[j][0] == intervals[j-1][0] && intervals[j][1] < intervals[j-1][1])); j--) {
+                    int[] temp = intervals[j];
+                    intervals[j] = intervals[j-1];
+                    intervals[j-1] = temp;
+            }
+        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

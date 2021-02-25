@@ -32,4 +32,51 @@ class Solution {
         return node.next;
     }
 }
+//这个算法20210223提交时超时了
+//leetcode submit region end(Prohibit modification and deletion)
+
+
+
+//20210223记录
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode node = new ListNode(0);
+        ListNode temp = head;
+        int N = 0;
+        while (temp != null) {
+            N++;
+            temp = temp.next;
+        }
+        int[] nums = new int[N];
+        N = 0;
+        temp = head;
+        while (temp != null) {
+            nums[N++] = temp.val;
+            temp = temp.next;
+        }
+        Arrays.sort(nums);
+        N = 0;
+        temp = node;
+        while (N < nums.length) {
+            temp.next = new ListNode(nums[N++]);
+            temp = temp.next;
+        }
+        return node.next;
+    }
+}
+执行耗时:7 ms,击败了77.25% 的Java用户
+内存消耗:48.3 MB,击败了5.03% 的Java用户
 //leetcode submit region end(Prohibit modification and deletion)
