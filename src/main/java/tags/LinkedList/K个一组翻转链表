@@ -1,0 +1,38 @@
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode pre = dummyHead;
+        ListNode cur = pre.next;
+        ListNode next = null;
+        while (cur != null) {
+            int count = k;
+            ListNode temp = cur;
+            while (temp != null && count > 0) {
+                temp = temp.next;
+                count--;
+            }
+            if (count == 0) {
+                count = k;
+            } else {
+                break;
+            }
+            while (count > 0) {
+                count--;
+                if (count == 0) {
+                    pre = cur;
+                    cur = cur.next;
+                    break;
+                }
+                next = cur.next;
+                if (next != null){
+                    cur.next = next.next;
+                    next.next = pre.next;
+                    pre.next = next;
+                }
+            }
+        }
+        return dummyHead.next;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
