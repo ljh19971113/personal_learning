@@ -1,0 +1,13 @@
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode pre = head;
+        while (head != null) {
+            while (head.next != null && head.val == head.next.val) {
+                head.next = head.next.next;
+            }
+            head = head.next;
+        }
+        return pre;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210416
