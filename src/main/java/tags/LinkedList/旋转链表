@@ -1,0 +1,55 @@
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null) {
+            return head;
+        }
+        ListNode right = head;
+        ListNode left = head;
+        int count = 1;
+        while (right.next != null) {
+            right = right.next;
+            count++;
+        }
+        k = k % count;
+        right = head;
+        while (k-- > 0) {
+            right = right.next;
+        }
+        while (right.next != null) {
+            left = left.next;
+            right = right.next;
+        }
+        right.next = head;
+        ListNode temp = left;
+        left = left.next;
+        temp.next = null;
+        return left;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210416
+
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode cur = head;
+        int count = 1;
+        while (cur.next != null) {
+            cur = cur.next;
+            count++;
+        }
+        cur.next = head;
+        k = count-(k % count);
+        while (k > 0) {
+            k--;
+            cur = cur.next;
+        }
+        ListNode temp = cur;
+        cur = cur.next;
+        temp.next = null;
+        return cur;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210416
