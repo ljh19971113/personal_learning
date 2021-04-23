@@ -1,0 +1,25 @@
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode left = new ListNode(0);
+        ListNode right = new ListNode(0);
+        ListNode mid = left;
+        ListNode end = right;
+        while (head != null) {
+            if (head.val < x) {
+                mid.next = head;
+                mid = mid.next;
+            } else {
+                end.next = head;
+                end = end.next;
+            }
+            head = head.next;
+        }
+        end.next = null;
+        mid.next = right.next;
+        return left.next;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210423  尝试找到多指针原地修改方案
