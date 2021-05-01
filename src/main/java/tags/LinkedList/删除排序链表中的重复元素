@@ -1,3 +1,4 @@
+删除排序链表中的重复元素
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode pre = head;
