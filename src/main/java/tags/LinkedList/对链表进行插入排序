@@ -1,0 +1,41 @@
+对链表进行插入排序
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode res = head;
+        head = head.next;
+        res.next = null;
+        while (head != null) {
+            ListNode temp = head;
+            head = head.next;
+            temp.next = null;
+            ListNode cur = res;
+            if (temp.val < cur.val) {
+                temp.next = cur;
+                res = temp;
+            } else {
+                while (cur.next != null && cur.next.val < temp.val) {
+                    cur = cur.next;
+                }
+                temp.next = cur.next;
+                cur.next = temp;
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)   20210502 垃圾实现
+
