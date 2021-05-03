@@ -1,0 +1,38 @@
+给单链表加一
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    int cal = 1;
+    public ListNode plusOne(ListNode head) {
+        ListNode node = plusOne2(head);
+        if (cal != 0) {
+            head = new ListNode(cal);
+            head.next = node;
+            node = head;
+        }
+        return node;
+    }
+
+    public ListNode plusOne2(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        plusOne(head.next);
+        if (cal != 0) {
+            int val = (head.val+cal)%10;
+            cal = (head.val+cal)/10;
+            head.val = val;
+        }
+        return head;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210503 递归，方法还是很垃圾，可以参考官网找到最后一个非九节点，然后加一，抹平该节点后面的所有节点（置零）
