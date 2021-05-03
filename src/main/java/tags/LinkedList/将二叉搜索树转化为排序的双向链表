@@ -1,0 +1,51 @@
+将二叉搜索树转化为排序的双向链表
+//leetcode submit region begin(Prohibit modification and deletion)
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val,Node _left,Node _right) {
+        val = _val;
+        left = _left;
+        right = _right;
+    }
+};
+*/
+
+
+class Solution {
+    Node left = null;
+    Node right = null;
+    public Node treeToDoublyList(Node root) {
+        if (root == null) {
+            return root;
+        }
+        helper(root);
+        left.left = right;
+        right.right = left;
+        return left;
+    }
+    public void helper(Node node) {
+        if (node != null) {
+            helper(node.left);
+            if (right != null) {
+                right.right = node;
+                node.left = right;
+            } else {
+                left = node;
+            }
+            right = node;
+            helper(node.right);
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210503 疯狂借鉴
