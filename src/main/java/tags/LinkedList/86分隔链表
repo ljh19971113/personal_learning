@@ -1,4 +1,4 @@
-分隔链表
+分隔链表 86
 class Solution {
     public ListNode partition(ListNode head, int x) {
         if (head == null || head.next == null) {

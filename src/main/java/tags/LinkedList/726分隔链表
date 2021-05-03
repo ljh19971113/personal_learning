@@ -1,0 +1,41 @@
+726分隔链表
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode[] splitListToParts(ListNode root, int k) {
+        ListNode node = root;
+        int count = 0;
+        while (node != null) {
+            count++;
+            node = node.next;
+        }
+        int val = count/k;
+        int calCount = count%k;
+        ListNode[] res = new ListNode[k];
+        for (int i=0;i<k;i++) {
+            ListNode cur = root;
+            int splitCount = calCount > 0 ? val+1 : val;
+            calCount--;
+            while (cur != null && splitCount > 1) {
+                cur = cur.next;
+                splitCount--;
+            }
+            res[i] = root;
+            if (cur != null) {
+                root = cur.next;
+                cur.next = null;
+            } else {
+                root = cur;
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210503
