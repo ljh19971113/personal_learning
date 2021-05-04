@@ -1,0 +1,37 @@
+链表组件
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.Arrays;
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int numComponents(ListNode head, int[] G) {
+        int resCount = 0;
+        int temp = 0;
+        Arrays.sort(G);
+        while (head != null) {
+            int val = Arrays.binarySearch(G,head.val);
+            if (val >= 0) {
+                temp++;
+            } else {
+                if (temp > 0) {
+                    resCount++;
+                }
+                temp = 0;
+            }
+            head = head.next;
+        }
+        if (temp > 0) {
+            resCount++;
+        }
+        return resCount;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210504  很垃圾的实现
