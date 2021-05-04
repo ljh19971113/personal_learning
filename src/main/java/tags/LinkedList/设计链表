@@ -1,0 +1,97 @@
+设计链表
+//leetcode submit region begin(Prohibit modification and deletion)
+class MyLinkedList {
+
+    class ListNode {
+        int val;
+        ListNode next;
+        public ListNode(int _val) {
+            this.val = _val;
+        }
+    }
+
+    ListNode dummyHead;
+
+    /** Initialize your data structure here. */
+    public MyLinkedList() {
+        dummyHead = new ListNode(0);
+    }
+
+    /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+    public int get(int index) {
+        ListNode node = dummyHead;
+        while (node != null && index >= 0) {
+            node = node.next;
+            index--;
+        }
+        if (node == null) {
+            return -1;
+        } else {
+            return node.val;
+        }
+    }
+
+    /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+    public void addAtHead(int val) {
+        ListNode temp = dummyHead.next;
+        dummyHead.next = new ListNode(val);
+        dummyHead.next.next = temp;
+
+    }
+
+    /** Append a node of value val to the last element of the linked list. */
+    public void addAtTail(int val) {
+        ListNode node = dummyHead;
+        while (node.next != null) {
+            node = node.next;
+        }
+        node.next = new ListNode(val);
+
+    }
+
+    /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+    public void addAtIndex(int index, int val) {
+        ListNode node = dummyHead;
+        while (index > 0 && node.next != null) {
+            node = node.next;
+            index--;
+        }
+        if (index == 0) {
+            ListNode temp = node.next;
+            node.next = new ListNode(val);
+            node.next.next = temp;
+        }
+
+    }
+
+    /** Delete the index-th node in the linked list, if the index is valid. */
+    public void deleteAtIndex(int index) {
+        ListNode node = dummyHead;
+        while (index > 0 && node.next != null) {
+            node = node.next;
+            index--;
+        }
+        if (index == 0 && node.next != null) {
+            node.next = node.next.next;
+        }
+    }
+
+    void printNode(ListNode node) {
+        while (node != null) {
+            System.out.print(node.val + "->");
+            node = node.next;
+        }
+        System.out.println("null");
+    }
+}
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * MyLinkedList obj = new MyLinkedList();
+ * int param_1 = obj.get(index);
+ * obj.addAtHead(val);
+ * obj.addAtTail(val);
+ * obj.addAtIndex(index,val);
+ * obj.deleteAtIndex(index);
+ */
+//leetcode submit region end(Prohibit modification and deletion)  20210504
