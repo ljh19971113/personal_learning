@@ -1,0 +1,62 @@
+循环有序列表的插入
+//leetcode submit region begin(Prohibit modification and deletion)
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _next) {
+        val = _val;
+        next = _next;
+    }
+};
+*/
+
+
+class Solution {
+    public Node insert(Node head, int insertVal) {
+        if (head == null) {
+            Node node = new Node(insertVal);
+            node.next = node;
+            return node;
+        }
+        boolean flag = false;
+        Node node = head;
+        while (node.next != head) {  //基本情况
+            if (checkinsertNode(node,insertVal)) {
+                flag = true;
+                break;
+            }
+            node = node.next;
+        }
+        if (!flag) {
+            if (!checkinsertNode(node,insertVal)) {
+                insertNode(node,insertVal);
+            }
+        }
+        return head;
+    }
+    public void insertNode(Node node, int insertVal) {
+        Node temp = new Node(insertVal);
+        temp.next = node.next;
+        node.next = temp;
+    }
+    public boolean checkinsertNode(Node node, int insertVal) {
+        if (node.val <= insertVal && node.next.val >= insertVal) {
+            insertNode(node,insertVal);
+            return true;
+        } else if (node.val > node.next.val && (node.val <= insertVal || node.next.val >= insertVal)) {
+            insertNode(node,insertVal);
+            return true;
+        }
+        return false;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210504 一气呵成，双百，老子牛逼
