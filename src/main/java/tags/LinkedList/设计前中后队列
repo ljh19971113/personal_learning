@@ -1,0 +1,115 @@
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class FrontMiddleBackQueue {
+
+    class ListNode{
+        int val;
+        ListNode next;
+        public ListNode(int x) {val = x;}
+    }
+
+    ListNode dummyHead;
+    ListNode back;
+
+    public FrontMiddleBackQueue() {
+        dummyHead = new ListNode(0);
+        back = dummyHead;
+    }
+
+    public void pushFront(int val) {
+        if (back == dummyHead) {
+            pushBack(val);
+        } else {
+            ListNode temp = dummyHead.next;
+            dummyHead.next = new ListNode(val);
+            dummyHead.next.next = temp;
+        }
+    }
+
+    public void pushMiddle(int val) {
+        if (back == dummyHead) {
+            pushBack(val);
+        } else {
+            ListNode slow = dummyHead;
+            ListNode fast = dummyHead;
+            while (fast.next != null && fast.next.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            ListNode temp = slow.next;
+            slow.next = new ListNode(val);
+            slow.next.next = temp;
+        }
+    }
+
+    public void pushBack(int val) {
+        back.next = new ListNode(val);
+        back = back.next;
+    }
+
+    public int popFront() {
+        int res = -1;
+        if (dummyHead.next != null) {
+            res = dummyHead.next.val;
+            dummyHead.next = dummyHead.next.next;
+        }
+        if (dummyHead.next == null) {
+            back = dummyHead;
+        }
+        return res;
+    }
+
+    public int popMiddle() {
+        int res = -1;
+        if (back != dummyHead) {
+            ListNode slow = dummyHead;
+            ListNode fast = dummyHead.next;
+            while (fast.next != null && fast.next.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            res = slow.next.val;
+            slow.next = slow.next.next;
+        }
+        if (dummyHead.next == null) {
+            back = dummyHead;
+        }
+        return res;
+    }
+
+    public int popBack() {
+        int res = -1;
+        if (back != dummyHead) {
+            res = back.val;
+            ListNode cur = dummyHead;
+            while (cur.next.next != null) {
+                cur = cur.next;
+            }
+            cur.next = cur.next.next;
+            back = cur;
+        }
+        return res;
+    }
+
+    void print() {
+        ListNode node = dummyHead.next;
+        while (node != null) {
+            System.out.print(node.val+"->");
+            node = node.next;
+        }
+        System.out.println("null");
+    }
+}
+
+/**
+ * Your FrontMiddleBackQueue object will be instantiated and called as such:
+ * FrontMiddleBackQueue obj = new FrontMiddleBackQueue();
+ * obj.pushFront(val);
+ * obj.pushMiddle(val);
+ * obj.pushBack(val);
+ * int param_4 = obj.popFront();
+ * int param_5 = obj.popMiddle();
+ * int param_6 = obj.popBack();
+ */
+//leetcode submit region end(Prohibit modification and deletion)
+20210505  因为使用了back来存储尾节点，所以需要在pop/push操作中关注当链表为空时，back的指向
