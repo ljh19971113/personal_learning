@@ -1,0 +1,81 @@
+链表中的下一个更大节点
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int[] nextLargerNodes(ListNode head) {
+        int count = 0;
+        ListNode node = head;
+        while (node != null) {
+            node = node.next;
+            count++;
+        }
+        int[] res = new int[count];
+        int k = 0;
+        ListNode cur = head;
+        while (cur != null) {
+            int val = cur.val;
+            ListNode temp = cur.next;
+            while (temp != null && temp.val <= val) {
+                temp = temp.next;
+            }
+            if (temp != null) {
+                res[k] = temp.val;
+            }
+            k++;
+            cur = cur.next;
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)   20210505 超级垃圾的实现
+
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.Stack;
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int[] nextLargerNodes(ListNode head) {
+        if (head == null) {
+            return new int[0];
+        }
+        int count = 0;
+        ListNode node = head;
+        while (node != null) {
+            node = node.next;
+            count++;
+        }
+        int[] res = new int[count];
+        count = 0;
+        node = head;
+        Stack<Integer> memory = new Stack<>();
+        while (node != null) {
+            while (!memory.isEmpty() && node.val > res[memory.peek()]) {
+                res[memory.pop()] = node.val;
+            }
+            memory.push(count);
+            res[count] = node.val;
+            count++;
+            node = node.next;
+        }
+        while (!memory.isEmpty()) {
+            res[memory.pop()] = 0;
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210505  借鉴他人
