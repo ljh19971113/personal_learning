@@ -1,0 +1,36 @@
+1669合并两个链表
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = list1;
+        int count = 0;
+        ListNode cur = dummyHead;
+        while (count < a) {
+            count++;
+            cur = cur.next;
+        }
+        ListNode temp = cur.next;
+        while (count <= b) {
+            temp = temp.next;
+            count++;
+        }
+        cur.next = list2;
+        while (cur.next != null) {
+            cur = cur.next;
+        }
+        cur.next = temp;
+        return dummyHead.next;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
