@@ -1,0 +1,41 @@
+从链表中删去总和值为零的连续节点
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode removeZeroSumSublists(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode cur = head;
+        ListNode pre = dummyHead;
+        int num = 0;
+        while (cur != null) {
+            ListNode temp = cur;
+            while (temp != null) {
+                num += temp.val;
+                if (num == 0) {
+                    pre.next = temp.next;
+                    cur = temp.next;
+                    break;
+                }
+                temp = temp.next;
+            }
+            if (temp == null) {
+                pre = cur;
+                cur = cur.next;
+                num = 0;
+            }
+        }
+        return dummyHead.next;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)  20210505 没想到这么垃圾的实现都能实现近双百的成绩
