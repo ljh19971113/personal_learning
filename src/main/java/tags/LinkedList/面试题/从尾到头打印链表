@@ -1,0 +1,26 @@
+从尾到头打印链表
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int res[];
+    int count = 0;
+    public int[] reversePrint(ListNode head) {
+        if (head == null) {
+            res = new int[count];
+            return res;
+        }
+        int temp = count++;
+        reversePrint(head.next);
+        res[count-temp-1] = head.val;
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210506 勉强掌握递归
