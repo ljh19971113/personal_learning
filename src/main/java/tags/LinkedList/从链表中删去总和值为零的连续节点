@@ -1,4 +1,4 @@
-从链表中删去总和值为零的连续节点
+1171从链表中删去总和值为零的连续节点
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  * Definition for singly-linked list.

@@ -1,4 +1,4 @@
-删除链表M个节点之后的N个节点
+1474删除链表M个节点之后的N个节点
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  * Definition for singly-linked list.

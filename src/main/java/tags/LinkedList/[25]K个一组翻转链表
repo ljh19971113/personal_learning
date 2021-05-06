@@ -1,4 +1,4 @@
-K个一组翻转链表
+25K个一组翻转链表
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummyHead = new ListNode(0);
