@@ -1,0 +1,33 @@
+环路检测
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import javax.swing.*;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        Set<ListNode> set = new HashSet<>();
+        while (head != null) {
+            if (set.contains(head)) {
+                return head;
+            }
+            set.add(head);
+            head = head.next;
+        }
+        return null;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210506 快慢指针应该更好一点，到时候研究研究
