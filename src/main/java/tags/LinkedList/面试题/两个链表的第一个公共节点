@@ -1,7 +1,6 @@
-链表相交
+两个链表的第一个公共节点
 //leetcode submit region begin(Prohibit modification and deletion)
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,19 +16,13 @@ import java.util.Set;
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        Set<ListNode> set = new HashSet<>();
-        while (headA != null) {
-            set.add(headA);
-            headA = headA.next;
+        ListNode A = headA;
+        ListNode B = headB;
+        while (A != B) {
+            A = A == null ? headB : A.next;
+            B = B == null ? headA : B.next;
         }
-        while (headB != null) {
-            if (set.contains(headB)) {
-                return headB;
-            }
-            set.add(headB);
-            headB = headB.next;
-        }
-        return null;
+        return A;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
@@ -61,3 +54,6 @@ public class Solution {
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
+20210506 这道题踩了很多坑，虽然知道这个思想，但是还是做错了，主要没考虑好
+1.终止条件
+2.A，B值精准的转变以及转变的及时对比
