@@ -1,0 +1,27 @@
+返回倒数第k个节点
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int kthToLast(ListNode head, int k) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (k > 0) {
+            fast = fast.next;
+            k--;
+        }
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow.val;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210506 省略部分边界判断，依然运行成功，leetcode的值给的真是令人放心
