@@ -1,0 +1,37 @@
+移除重复节点
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode removeDuplicateNodes(ListNode head) {
+        Set<Integer> set = new HashSet<>();
+        ListNode cur = head;
+        while (cur != null) {
+            set.add(cur.val);
+            cur = cur.next;
+        }
+        ListNode dummyHead = new ListNode(0);
+        cur = dummyHead;
+        while (head != null) {
+            if (set.contains(head.val)) {
+                cur.next = head;
+                cur = cur.next;
+                set.remove(head.val);
+            }
+            head = head.next;
+        }
+        cur.next = null;
+        return dummyHead.next;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
