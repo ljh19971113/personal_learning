@@ -1,0 +1,32 @@
+回文链表
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    ListNode front;
+    public boolean isPalindrome(ListNode head) {
+        front = head;
+        return recursivelyCheck(head);
+    }
+
+    public boolean recursivelyCheck(ListNode node) {
+        if (node != null) {
+            if (!recursivelyCheck(node.next)) {
+                return false;
+            }
+            if (node.val != front.val) {
+                return false;
+            }
+            front = front.next;
+        }
+        return true;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210506 借鉴官方答案，好好思考思考递归分两个方法的用法
