@@ -1,0 +1,33 @@
+接雨水
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int trap(int[] height) {
+        int sum = 0;
+        for (int val : height) {
+            sum += val;
+        }
+        int leftMaxIndex = 0;  //左边界最大值索引
+        for (int i=1;i<height.length;i++) {
+            if (height[i] > height[i-1]) {
+                int num = Math.min(height[i],height[leftMaxIndex]);
+                for (int j=leftMaxIndex+1;j<i;j++) {
+                    if (height[j] < num) {
+                        height[j] = num;
+                    }
+                }
+                if (height[i] > height[leftMaxIndex]) {
+                    leftMaxIndex = i;
+                }
+            }
+        }
+        for (int val : height) {
+            sum -= val;
+        }
+        return -sum;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210507 一次通过，虽然时间效率不咋地，但是我感觉我好屌
+解答成功:
+		执行耗时:7 ms,击败了13.99% 的Java用户
+		内存消耗:37.7 MB,击败了95.41% 的Java用户
