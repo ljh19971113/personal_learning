@@ -1,0 +1,45 @@
+柱状图中最大的矩形
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    int area = 0;
+    public int largestRectangleArea(int[] heights) {
+        int minIndex = getMinIndex(heights,0,heights.length);
+        area = heights[minIndex]*heights.length;
+        largestRectangleArea(heights,0, minIndex);
+        largestRectangleArea(heights,minIndex+1, heights.length);
+        return area;
+    }
+
+    public void largestRectangleArea(int[] heights,int start,int end) {
+        if ((end - start) == 1) {
+            area = Math.max(area,heights[start]);
+            return;
+        }
+        if (end != start) {
+            int minIndex = getMinIndex(heights,start,end);
+            area = Math.max(area,heights[minIndex]*(end-start));
+            largestRectangleArea(heights,start,minIndex);
+            largestRectangleArea(heights,minIndex+1,end);
+        }
+    }
+    public int getMinIndex(int[] heights,int start,int end) {  //[start,end)
+        int minIndex = start;
+        int mid = (end-start)/2 + start;
+        for (int i=start+1;i<end;i++) {
+            if (heights[i] < heights[minIndex]) {
+                minIndex = i;
+            } else if (heights[i] == heights[minIndex]) {
+                if (Math.abs(i-mid) < Math.abs(minIndex-mid)) {
+                    minIndex = i;
+                }
+            }
+        }
+        return minIndex;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210507 数据类型要考虑很多
+1.[2,1,2]，[0,9],[1]，[8035*n]等等
+解答成功:
+		执行耗时:22 ms,击败了82.50% 的Java用户
+		内存消耗:50.5 MB,击败了37.82% 的Java用户
