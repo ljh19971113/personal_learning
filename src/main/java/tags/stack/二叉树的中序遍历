@@ -1,0 +1,81 @@
+二叉树的中序遍历
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    LinkedList<Integer> res = new LinkedList<>();
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if (root == null) {
+            return res;
+        }
+        inorderTraversal(root.left);
+        res.addLast(root.val);
+        inorderTraversal(root.right);
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210509  应该用栈试试
+解答成功:
+			执行耗时:0 ms,击败了100.00% 的Java用户
+			内存消耗:36.5 MB,击败了90.01% 的Java用户
+
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.LinkedList;
+import java.util.Stack;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            res.add(root.val);
+            root = root.right;
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210509 疯狂借鉴
+解答成功:
+执行耗时:1 ms,击败了43.39% 的Java用户
+内存消耗:36.7 MB,击败了64.38% 的Java用户
+
