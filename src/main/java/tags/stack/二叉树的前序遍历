@@ -1,0 +1,74 @@
+二叉树的前序遍历
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<Integer> res = new LinkedList<>();
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if (root == null) {
+            return res;
+        }
+        res.add(root.val);
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                res.add(root.val);
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            root = root.right;
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210509
