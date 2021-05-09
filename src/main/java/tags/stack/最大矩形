@@ -1,0 +1,50 @@
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        int row = matrix.length;
+        if (row == 0) {
+            return 0;
+        }
+        int cols = matrix[0].length;
+        int[][] count = new int[row][cols];
+        for (int i=0;i<row;i++) {
+            for (int j=0;j<cols;j++) {
+                if (matrix[i][j] == '1') {
+                    count[i][j] = (j==0 ? 1 : count[i][j-1]+1);
+                }
+            }
+        }
+
+        int res = 0;   //返回最大面积
+        for (int i=0;i<cols;i++) {
+            int[] left = new int[row];
+            int[] right = new int[row];
+            int area = 0;
+
+            Stack<Integer> stack = new Stack<>();
+            for (int j=0;j<row;j++) {
+                while (!stack.isEmpty() && count[stack.peek()][i] >= count[j][i]) {
+                    stack.pop();
+                }
+                left[j] = stack.isEmpty() ? -1 : stack.peek();
+                stack.push(j);
+            }
+            stack.clear();
+            for (int j=row-1;j>=0;j--) {
+                while (!stack.isEmpty() && count[stack.peek()][i] >= count[j][i]) {
+                    stack.pop();
+                }
+                right[j] = stack.isEmpty() ? row : stack.peek();
+                stack.push(j);
+            }
+
+            for (int j=0;j<row;j++) {
+                area = Math.max(area,(right[j]-left[j]-1)*count[j][i]);
+            }
+            res = Math.max(area,res);
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210509 疯狂借鉴
