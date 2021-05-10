@@ -1,0 +1,55 @@
+逆波兰表达式求值
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Set<String> ops = new HashSet<>();
+        ops.add("+");
+        ops.add("-");
+        ops.add("*");
+        ops.add("/");
+        Stack<String> opers = new Stack<>();
+        Stack<Integer> nums = new Stack<>();
+        for (int i=0;i<tokens.length;i++) {
+            if (ops.contains(tokens[i])) {
+                opers.push(tokens[i]);
+            } else {
+                nums.push(Integer.valueOf(tokens[i]));
+            }
+            if (nums.size() > 1 && !opers.isEmpty()) {
+                int num2 = nums.pop();
+                int num1 = nums.pop();
+                String oper = opers.pop();
+                int num = cal(num1,num2,oper);
+                nums.push(num);
+            }
+        }
+        while (!opers.isEmpty()) {
+            int num2 = nums.pop();
+            int num1 = nums.pop();
+            String oper = opers.pop();
+            int num = cal(num1,num2,oper);
+            nums.push(num);
+        }
+        return nums.pop();
+    }
+
+    int cal(int num1, int num2, String oper) {
+        switch (oper) {
+            case "+":
+                return num1+num2;
+            case "-":
+                return num1-num2;
+            case "*":
+                return num1*num2;
+            case "/":
+                return num1/num2;
+            default:
+                return -1;
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210510
+		解答成功:
+		执行耗时:8 ms,击败了29.59% 的Java用户
+		内存消耗:38 MB,击败了88.37% 的Java用户
