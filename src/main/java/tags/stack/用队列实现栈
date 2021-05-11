@@ -1,0 +1,48 @@
+用队列实现栈
+//leetcode submit region begin(Prohibit modification and deletion)
+class MyStack {
+    Queue<Integer> queue = new LinkedList<>();
+
+    /** Initialize your data structure here. */
+    public MyStack() {
+
+    }
+
+    /** Push element x onto stack. */
+    public void push(int x) {
+        int size = queue.size();
+        queue.offer(x);
+        for (int i=0;i<size;i++) {
+            queue.offer(queue.poll());
+        }
+    }
+
+    /** Removes the element on top of the stack and returns that element. */
+    public int pop() {
+        return queue.poll();
+    }
+
+    /** Get the top element. */
+    public int top() {
+        return queue.peek();
+    }
+
+    /** Returns whether the stack is empty. */
+    public boolean empty() {
+        return queue.isEmpty();
+    }
+}
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
+//leetcode submit region end(Prohibit modification and deletion)
+20210511  部分借鉴
+解答成功:
+执行耗时:0 ms,击败了100.00% 的Java用户
+内存消耗:36.1 MB,击败了76.15% 的Java用户
