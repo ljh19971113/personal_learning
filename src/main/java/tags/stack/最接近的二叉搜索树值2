@@ -1,0 +1,46 @@
+最接近的二叉搜索树值2
+//leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+        Queue<Integer> queue = new LinkedList<>();
+        inorder(root, queue, target, k);
+        return new ArrayList<>(queue);
+    }
+    public void inorder(TreeNode root, Queue<Integer> queue, double target, int k) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left, queue, target, k);
+        if (queue.size() == k) {
+            if (Double.compare(Math.abs(queue.peek() - target), Math.abs(root.val - target)) > 0) {
+                queue.poll();
+                queue.offer(root.val);
+            }
+        } else {
+            queue.offer(root.val);
+        }
+        inorder(root.right, queue, target, k);
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210513 借鉴。网友简直太溜了
