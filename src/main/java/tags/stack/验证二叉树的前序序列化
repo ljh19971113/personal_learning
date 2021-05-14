@@ -1,0 +1,40 @@
+验证二叉树的前序序列化
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public boolean isValidSerialization(String preorder) {
+        if (preorder.length() == 0 || (preorder.length() > 1 && preorder.charAt(0) == '#')) {
+            return false;
+        }
+        if (preorder.length() == 1 && preorder.equals("#")) {
+            return true;
+        }
+        Stack<String> stack = new Stack<>();
+        String[] strings = preorder.split(",");
+        for (int i=0;i<strings.length;i++) {
+            if (stack.isEmpty() && i != 0) {
+                return false;
+            }
+            String c = strings[i];
+            if (c.equals("#")) {
+                while (stack.size() > 1 && stack.peek().equals("#")) {
+                    stack.pop();
+                    String temp = stack.pop();
+                    if (temp.equals("#")) {
+                        return false;
+                    }
+                }
+                if (!stack.isEmpty()) {
+                    stack.push(c);
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210514  虽然做出来了，但是很多情况没考虑到导致出错很多次，而且效率不是很好
+解答成功:
+执行耗时:9 ms,击败了12.84% 的Java用户
+内存消耗:38.4 MB,击败了46.58% 的Java用户
