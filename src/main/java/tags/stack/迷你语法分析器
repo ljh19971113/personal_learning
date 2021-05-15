@@ -1,0 +1,140 @@
+迷你语法分析器
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * public interface NestedInteger {
+ *     // Constructor initializes an empty nested list.
+ *     public NestedInteger();
+ *
+ *     // Constructor initializes a single integer.
+ *     public NestedInteger(int value);
+ *
+ *     // @return true if this NestedInteger holds a single integer, rather than a nested list.
+ *     public boolean isInteger();
+ *
+ *     // @return the single integer that this NestedInteger holds, if it holds a single integer
+ *     // Return null if this NestedInteger holds a nested list
+ *     public Integer getInteger();
+ *
+ *     // Set this NestedInteger to hold a single integer.
+ *     public void setInteger(int value);
+ *
+ *     // Set this NestedInteger to hold a nested list and adds a nested integer to it.
+ *     public void add(NestedInteger ni);
+ *
+ *     // @return the nested list that this NestedInteger holds, if it holds a nested list
+ *     // Return empty list if this NestedInteger holds a single integer
+ *     public List<NestedInteger> getList();
+ * }
+ */
+class Solution {
+    char[] chars;
+    int index = 0;
+    public NestedInteger deserialize(String s) {
+        chars = s.toCharArray();
+        if (chars[index] != '[') {  //这个条件不能直接判断是否为数字..，因为还有负值
+            return new NestedInteger(Integer.valueOf(s));
+        }
+        return getNest();
+    }
+    public NestedInteger getNest() {
+        boolean negative = false;
+        NestedInteger nest = new NestedInteger();
+        while (index < chars.length-1) {
+            index++;
+            if (chars[index] == '[') {
+                nest.add(getNest());
+            } else if (chars[index] == ']') {
+                return nest;
+            } else if (chars[index] == '-') {
+                negative = true;
+            } else if (Character.isDigit(chars[index])) {
+                int num = 0;
+                while (index < chars.length && Character.isDigit(chars[index])) {
+                    num = num*10 + chars[index]-'0';
+                    index++;
+                }
+                index--;
+                if (negative) {
+                    num = -num;
+                    negative = false;
+                }
+                nest.add(new NestedInteger(num));
+            }
+        }
+        return nest;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210515  也不知道是题坑还是我理解能力有问题,setInteger()完全用不上我也是懵逼了
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * public interface NestedInteger {
+ *     // Constructor initializes an empty nested list.
+ *     public NestedInteger();
+ *
+ *     // Constructor initializes a single integer.
+ *     public NestedInteger(int value);
+ *
+ *     // @return true if this NestedInteger holds a single integer, rather than a nested list.
+ *     public boolean isInteger();
+ *
+ *     // @return the single integer that this NestedInteger holds, if it holds a single integer
+ *     // Return null if this NestedInteger holds a nested list
+ *     public Integer getInteger();
+ *
+ *     // Set this NestedInteger to hold a single integer.
+ *     public void setInteger(int value);
+ *
+ *     // Set this NestedInteger to hold a nested list and adds a nested integer to it.
+ *     public void add(NestedInteger ni);
+ *
+ *     // @return the nested list that this NestedInteger holds, if it holds a nested list
+ *     // Return empty list if this NestedInteger holds a single integer
+ *     public List<NestedInteger> getList();
+ * }
+ */
+class Solution {
+    char[] chars;
+    int index = 0;
+    public NestedInteger deserialize(String s) {
+        chars = s.toCharArray();
+        return getNest();
+    }
+    public NestedInteger getNest() {
+        boolean negative = false;
+        NestedInteger nest = new NestedInteger();
+        while (index < chars.length-1) {
+            if (chars[index] == '[') {
+                index++;
+                nest.add(getNest());
+            } else if (chars[index] == ']') {
+                index++;
+                return nest;
+            } else if (chars[index] == ',') {
+                index++;
+            } else if (chars[index] == '-') {
+                index++;
+                negative = true;
+            } else if (Character.isDigit(chars[index])) {
+                int num = 0;
+                while (index < chars.length && Character.isDigit(chars[index])) {
+                    num = num*10 + chars[index]-'0';
+                    index++;
+                }
+                if (negative) {
+                    num = -num;
+                    negative = false;
+                }
+                nest.setInteger(num);
+            }
+        }
+        return nest;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+附上我自己理解写得答案，不能AC
