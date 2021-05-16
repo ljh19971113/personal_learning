@@ -1,0 +1,47 @@
+字符串解码
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    int index = 0;
+    char[] chars;
+    public String decodeString(String s) {
+        chars = s.toCharArray();
+        StringBuilder res = new StringBuilder();
+        while (index < chars.length) {
+            if (Character.isDigit(chars[index])) {
+                getString(res);
+            } else {
+                res.append(chars[index]);
+                index++;
+            }
+        }
+        return res.toString();
+    }
+    private void getString(StringBuilder builder) {
+        int count = 0;
+        while (Character.isDigit(chars[index])) {
+            count = count*10 + chars[index]-'0';
+            index++;
+        }
+        StringBuilder temp = new StringBuilder();
+        index ++;
+        while (index < chars.length) {
+            if (chars[index] == ']') {
+                index++;
+                break;
+            } else if (Character.isDigit(chars[index])) {
+                getString(temp);
+            } else {
+                temp.append(chars[index]);
+                index++;
+            }
+        }
+        for (int i=0;i<count;i++) {
+            builder.append(temp);
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210516 需要考虑到数字范围不一定只有一位数
+解答成功:
+执行耗时:1 ms,击败了89.08% 的Java用户
+内存消耗:36.7 MB,击败了46.94% 的Java用户
