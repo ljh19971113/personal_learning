@@ -1,0 +1,38 @@
+移掉K位数字
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String removeKdigits(String num, int k) {
+        Deque<Character> stack = new LinkedList<>();
+        for (int i=0;i<num.length();i++) {
+            while (!stack.isEmpty() && k > 0 && num.charAt(i) < stack.peekLast()) {
+                stack.pollLast();
+                k--;
+            }
+            stack.offer(num.charAt(i));
+        }
+        while (k > 0) {
+            stack.pollLast();
+            k--;
+        }
+        boolean leadZero = true;
+        StringBuilder res = new StringBuilder();
+        while (!stack.isEmpty()) {
+            char c = stack.pollFirst();
+            if (leadZero && c == '0') {
+                continue;
+            }
+            leadZero = false;
+            res.append(c);
+        }
+        return res.length() == 0 ? "0" : res.toString();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210516  借鉴，不过思路大致一样，但是要注意很多细节，比如
+1.单调栈使用完成之后K值可能不为0（顺序递增情况）
+2.数字以0开头
+3.处理栈后res值为空（栈本身为空或者栈内数据全为0）
+
+解答成功:
+执行耗时:10 ms,击败了60.59% 的Java用户
+内存消耗:38.5 MB,击败了77.17% 的Java用户
