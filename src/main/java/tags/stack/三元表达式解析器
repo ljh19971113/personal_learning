@@ -1,0 +1,17 @@
+三元表达式解析器
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public String parseTernary(String expression) {
+        int n = expression.length();
+        int checkLevel = 0;
+        for (int j = 1; j < n; j++) {
+            if (expression.charAt(j) == '?') checkLevel++;
+            if (expression.charAt(j) == ':') checkLevel--;
+            if (checkLevel == 0) return (expression.charAt(0) == 'T') ? parseTernary(expression.substring(2, j)) : parseTernary(expression.substring(j+1, n));
+        }
+        return expression;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210516 想半天没想到怎么用栈做，仔细看条件发现数字只会有一位，淦，又自己给自己挖坑了，最近简直迷糊了
+这个递归是借鉴别人的，妙的一批，省了一半的计算
