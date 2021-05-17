@@ -1,0 +1,26 @@
+132模式
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        Stack<Integer> stack = new Stack<>();
+        int second = Integer.MIN_VALUE;
+        stack.push(nums[nums.length-1]);
+        for (int i=nums.length-2;i>=0;i--) {
+            if (nums[i] < second) {
+                return true;
+            }
+            while (!stack.isEmpty() && nums[i] > stack.peek()) {
+                second = stack.pop();
+            }
+            if (nums[i] > second) {
+                stack.push(nums[i]);
+            }
+        }
+        return false;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210517 官方思路很妙，后续要把剩下两个思路也学学
+解答成功:
+执行耗时:9 ms,击败了80.57% 的Java用户
+内存消耗:38.6 MB,击败了83.72% 的Java用户
