@@ -1,0 +1,59 @@
+下一个更大的元素2
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int[] res = new int[nums.length];
+        for (int i=0;i<nums.length;i++) {
+            int j = i+1;
+            while (true) {
+                if (j == nums.length) {
+                    j = 0;
+                }
+                if (j == i) {
+                    break;
+                }
+                if (nums[j] > nums[i]) {
+                    res[i] = nums[j];
+                    break;
+                }
+                j++;
+            }
+            if (j == i) {
+                res[i] = -1;
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210517 注意循环时候值变化后的判断，不然会导致死循环
+解答成功:
+执行耗时:59 ms,击败了16.93% 的Java用户
+内存消耗:39.4 MB,击败了86.55% 的Java用户
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        for (int i=0;i<n;i++) {
+            int j = i+1;
+            while (j%n != i) {
+                if (nums[j%n] > nums[i]) {
+                    res[i] = nums[j%n];
+                    break;
+                }
+                j++;
+            }
+            if (j%n == i) {
+                res[i] = -1;
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+改良了一下，效率更低，但是代码看着舒服点
+解答成功:
+执行耗时:164 ms,击败了11.36% 的Java用户
+内存消耗:39.3 MB,击败了90.67% 的Java用户
