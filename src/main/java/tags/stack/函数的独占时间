@@ -1,0 +1,28 @@
+函数的独占时间
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[] exclusiveTime(int n, List<String> logs) {
+        Stack<Integer> stack = new Stack<>();  //记录start id
+        int prev = 0;
+        int[] res = new int[n];
+        for (String log : logs) {
+            String[] record = log.split(":");
+            int time = Integer.valueOf(record[2]);
+            int id = Integer.valueOf(record[0]);
+            if (record[1].equals("start")) {
+                if (!stack.isEmpty()) {
+                    res[stack.peek()] += time - prev;
+                }
+                stack.push(id);
+                prev = time;
+            } else {
+                res[stack.pop()] += time - prev + 1;
+                prev = time+1;
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210518 一开始用栈存储时间，后来发现很多案例无法通过，改为id，并每次都累加时间差，就ok了
+需要注意start和end状态时对时间的处理不一样。
