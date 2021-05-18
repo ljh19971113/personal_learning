@@ -1,0 +1,63 @@
+标签验证器
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    Stack<String> tags = new Stack<>();
+    boolean contains_tag = false; //记录是否是外部标签
+    public boolean isValid(String code) {
+        if (code.charAt(0) != '<' || code.charAt(code.length()-1) != '>') {
+            return false;
+        }
+        for (int i=0;i<code.length();i++) {
+            int closeIndex = 0;
+            boolean ending = false;
+            if (tags.isEmpty() && contains_tag) {
+                return false;
+            }
+            if (code.charAt(i) == '<') {
+                if (!tags.isEmpty() && code.charAt(i+1) == '!') { //tag不为空保证以Cdata开头结尾不报错
+                    closeIndex = code.indexOf("]]>",i+1);
+                    if (closeIndex < 0 || !isValidCdata(code.substring(i+2,closeIndex))) {
+                        return false;
+                    }
+                } else {
+                    if (code.charAt(i+1) == '/') {
+                        i++;
+                        ending = true;
+                    }
+                    closeIndex = code.indexOf('>',i);
+                    if (closeIndex < 0 || !isValidTag(code.substring(i+1,closeIndex),ending)) {
+                        return false;
+                    }
+                }
+                i = closeIndex;
+            }
+        }
+        return tags.isEmpty() && contains_tag;
+    }
+    boolean isValidCdata(String data) {
+        return data.indexOf("[CDATA[") == 0;
+    }
+    boolean isValidTag(String tag, boolean ending) {
+        if (tag.length() < 1 || tag.length() > 9) {
+            return false;
+        }
+        for (char c : tag.toCharArray()) {
+            if (!Character.isUpperCase(c)) {
+                return false;
+            }
+        }
+        if (ending) {
+            if (!tags.isEmpty() && tags.peek().equals(tag)) {
+                tags.pop();
+            } else {
+                return false;
+            }
+        } else {
+            contains_tag = true;
+            tags.push(tag);
+        }
+        return true;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210519 借鉴借鉴，不过自己动动脑子应该可以做出来？
