@@ -1,0 +1,33 @@
+行星碰撞
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> stack = new Stack<>();
+        for (int num : asteroids) {
+            if (num > 0 || stack.isEmpty()) {
+                stack.push(num);
+            } else {
+                while (!stack.isEmpty() && stack.peek() > 0 && stack.peek() < Math.abs(num)) {
+                    stack.pop();
+                }
+                if (!stack.isEmpty() && stack.peek() == -num) {  //注意stack判空和相向星球质量相同情况
+                    stack.pop();
+                    continue;
+                }
+                if (stack.isEmpty() || stack.peek() < 0) {
+                    stack.push(num);
+                }
+            }
+        }
+        int[] res = new int[stack.size()];
+        for (int i=res.length-1;i>=0;i--) {
+            res[i] = stack.pop();
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210519
+解答成功:
+执行耗时:7 ms,击败了53.11% 的Java用户
+内存消耗:39.4 MB,击败了29.44% 的Java用户
