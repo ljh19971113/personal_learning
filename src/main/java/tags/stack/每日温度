@@ -1,0 +1,23 @@
+每日温度
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        Stack<Integer> stack = new Stack<>(); //index save
+        int[] res = new int[temperatures.length];
+        for (int i=temperatures.length-1;i>=0;i--) {
+            while (!stack.isEmpty() && temperatures[stack.peek()] <= temperatures[i]) {  //注意等于号，因为要升高才算
+                stack.pop();
+            }
+            if (!stack.isEmpty()) {
+                res[i] = stack.peek()-i;
+            }
+            stack.push(i);
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210519 要注意等于的情况，连着踩坑，淦
+解答成功:
+执行耗时:22 ms,击败了45.73% 的Java用户
+内存消耗:46.3 MB,击败了89.13% 的Java用户
