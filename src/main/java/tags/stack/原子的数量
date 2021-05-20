@@ -1,0 +1,48 @@
+原子的数量
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    int index = 0;
+    public String countOfAtoms(String formula) {
+        Map<String,Integer> map = parse(formula);
+        StringBuilder res = new StringBuilder();
+        for (String key : map.keySet()) {
+            res.append(key);
+            int val = map.get(key);
+            if (val > 1) {
+                res.append(val);
+            }
+        }
+        return res.toString();
+    }
+    private Map<String,Integer> parse(String formula) {
+        int N = formula.length();
+        Map<String,Integer> map = new TreeMap<>();
+        while (index < N && formula.charAt(index) != ')') {
+            if (formula.charAt(index) == '(') {
+                index++;
+                for (Map.Entry<String,Integer> entry : parse(formula).entrySet()) {
+                    map.put(entry.getKey(),map.getOrDefault(entry.getKey(),0) + entry.getValue());
+                }
+            } else {
+                int start = index++;  //第一个字母必大写
+                while (index < N && Character.isLowerCase(formula.charAt(index))) index++;
+                String name = formula.substring(start,index);
+                start = index;
+                while (index < N && Character.isDigit(formula.charAt(index))) index++;
+                int num = start < index ? Integer.parseInt(formula.substring(start,index)) : 1;
+                map.put(name,map.getOrDefault(name,0)+num);
+            }
+        }
+        int start = ++index;
+        while (index < N && Character.isDigit(formula.charAt(index))) index++;
+        if (start < index) {
+            int num = Integer.parseInt(formula.substring(start,index));
+            for (String key : map.keySet()) {
+                map.put(key,map.get(key)*num);
+            }
+        }
+        return map;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210520 借鉴借鉴借鉴借鉴借鉴
