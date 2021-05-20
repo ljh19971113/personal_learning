@@ -1,0 +1,33 @@
+比较含退格的字符串
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        Stack<Character> stack1 = new Stack<>();
+        Stack<Character> stack2 = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '#') {
+                if (!stack1.isEmpty()) stack1.pop();
+            } else {
+                stack1.push(c);
+            }
+        }
+        for (char c : t.toCharArray()) {
+            if (c == '#') {
+                if (!stack2.isEmpty()) stack2.pop();  //没考虑好
+            } else {
+                stack2.push(c);
+            }
+        }
+        while (!stack1.isEmpty() && !stack2.isEmpty()) {
+            if (stack1.pop() != stack2.pop()) {
+                return false;
+            }
+        }
+        return stack1.isEmpty() && stack2.isEmpty();
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210520 用栈没考虑好一些情况，另外字符串操作偶尔也可以当成栈操作。不必太拘泥
+解答成功:
+执行耗时:2 ms,击败了49.85% 的Java用户
+内存消耗:36.7 MB,击败了52.50% 的Java用户
