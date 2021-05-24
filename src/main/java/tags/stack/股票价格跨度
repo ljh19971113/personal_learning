@@ -1,0 +1,30 @@
+股票价格跨度
+//leetcode submit region begin(Prohibit modification and deletion)
+class StockSpanner {
+    Stack<Integer> stack = new Stack<>();
+
+    public StockSpanner() {
+    }
+
+    public int next(int price) {
+        int num = 1;
+        while (!stack.isEmpty() && price >= stack.peek()) {  //这个等于真的坑
+            stack.pop();
+            num += stack.pop();
+        }
+        stack.push(num);
+        stack.push(price);
+        return num;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
+//leetcode submit region end(Prohibit modification and deletion)
+20210524 有时候常识也会限制住你的思维，官方也不例外
+解答成功:
+执行耗时:39 ms,击败了56.59% 的Java用户
+内存消耗:47 MB,击败了49.43% 的Java用户
