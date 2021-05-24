@@ -1,0 +1,41 @@
+最大频率栈
+//leetcode submit region begin(Prohibit modification and deletion)
+class FreqStack {
+    Map<Integer,Integer> freq= new HashMap<>();
+    Map<Integer,Stack<Integer>> stackMap = new HashMap<>();
+    int maxFreq = 0;
+
+    public FreqStack() {
+
+    }
+
+    public void push(int val) {
+        int q = freq.getOrDefault(val,0)+1;
+        if (q > maxFreq) {
+            maxFreq = q;
+        }
+        freq.put(val,q);
+        stackMap.computeIfAbsent(q, z-> new Stack()).push(val);
+    }
+
+    public int pop() {
+        int res = stackMap.get(maxFreq).pop();
+        freq.put(res,freq.get(res)-1);
+        if (stackMap.get(maxFreq).size() == 0) {
+            maxFreq--;
+        }
+        return res;
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ */
+//leetcode submit region end(Prohibit modification and deletion)
+20210524 这种思路需要好好学习，记录频率，根据频率分类入栈，不但可以保证每个频率栈出入栈顺序，而且也满足了频率要求
+解答成功:
+执行耗时:65 ms,击败了16.32% 的Java用户
+内存消耗:47.2 MB,击败了79.01% 的Java用户
