@@ -1,0 +1,40 @@
+基本计算器
+//leetcode submit region begin(Prohibit modification and deletion)
+class Solution {
+    public int calculate(String s) {
+        int res = 0;
+        Stack<Integer> ops = new Stack<>();
+        ops.push(1);
+        int len = s.length();
+        int n = 0;
+        int preop = 1;
+        while (n < len) {
+            char c = s.charAt(n);
+            if (c == ' ') {
+                n++;
+            } else if (c == '+') {
+                preop = ops.peek();
+                n++;
+            } else if (c == '-') {
+                preop = -ops.peek();
+                n++;
+            } else if (c == '(') {
+                ops.push(preop);
+                n++;
+            } else if (c == ')') {
+                ops.pop();
+                n++;
+            } else {
+                long num = 0;
+                while (n < len && Character.isDigit(s.charAt(n))) {
+                    num = num*10 + (s.charAt(n) - '0');
+                    n++;
+                }
+                res += preop*num;
+            }
+        }
+        return res;
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+20210529  注意判断边界条件
